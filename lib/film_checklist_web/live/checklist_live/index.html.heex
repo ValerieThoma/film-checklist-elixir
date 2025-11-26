@@ -1,0 +1,33 @@
+<.header>
+  Your Checklists
+  <:actions>
+    <.link patch={~p"/checklists/new"}>
+      <.button>New Checklist</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="checklists"
+  rows={@streams.checklists}
+  row_click={fn {_id, checklist} -> JS.navigate(~p"/checklists/#{checklist}") end}
+>
+  <:col :let={{_id, checklist}} label="Film">
+    <%= checklist.film.title %>
+  </:col>
+  <:col :let={{_id, checklist}} label="Score">
+    <%= checklist.total_score %> tampons
+  </:col>
+  <:col :let={{_id, checklist}} label="Status">
+    <%= if checklist.completed, do: "Completed", else: "In Progress" %>
+  </:col>
+  <:col :let={{_id, checklist}} label="Date">
+    <%= checklist.inserted_at %>
+  </:col>
+  <:action :let={{_id, checklist}}>
+    <.link navigate={~p"/checklists/#{checklist}"}>View</.link>
+  </:action>
+  <:action :let={{_id, checklist}}>
+    <.link patch={~p"/checklists/#{checklist}/edit"}>Edit</.link>
+  </:action>
+</.table>

@@ -1,0 +1,26 @@
+<.header>
+  Checklist for <%= @film.title %>
+  <:subtitle>Score: <%= @checklist.total_score %> tampons</:subtitle>
+  <:actions>
+    <.link patch={~p"/checklists/#{@checklist}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit checklist</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<%= if @live_action == :edit do %>
+  <.live_component
+    module={FilmChecklistWeb.ChecklistLive.FormComponent}
+    id={@checklist.id}
+    checklist={@checklist}
+    film={@film}
+    current_user={@current_scope.user}
+  />
+<% end %>
+
+<div class="mt-4">
+  <.link navigate={~p"/checklists"} class="text-sm font-semibold leading-6 text-zinc-900 hover:text-zinc-700">
+    <.icon name="hero-arrow-left-solid" class="h-3 w-3" />
+    Back to checklists
+  </.link>
+</div>
