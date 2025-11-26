@@ -185,6 +185,16 @@ defmodule FilmChecklist.Checklists do
     Phoenix.PubSub.subscribe(FilmChecklist.PubSub, "user:#{key}:checklists")
   end
 
+  @doc """
+  Returns the list of checklists for a given user id.
+
+  This is a helper used by some views that only have access to a user id,
+  not the full `Scope` struct.
+  """
+  def list_user_checklists(user_id) do
+    Repo.all_by(Checklist, user_id: user_id)
+  end
+
   defp broadcast_checklist(%Scope{} = scope, message) do
     key = scope.user.id
 
