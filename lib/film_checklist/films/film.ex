@@ -17,7 +17,7 @@ defmodule FilmChecklist.Films.Film do
   def changeset(film, attrs, user_scope) do
     film
     |> cast(attrs, [:title, :year, :poster_url])
-    |> validate_required([:title, :year, :poster_url])
+    |> validate_required([:title, :year])
     |> put_change(:user_id, user_scope.user.id)
   end
 end
